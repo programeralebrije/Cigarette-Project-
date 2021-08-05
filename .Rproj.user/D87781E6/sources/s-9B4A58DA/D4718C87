@@ -3,7 +3,7 @@
     "path": "~/Desktop/Rcode/Final Project R Cigarette /Cigarette Project /Cigarette Project .R",
     "project_path": "Cigarette Project .R",
     "type": "r_source",
-    "hash": "3075678181",
+    "hash": "751495776",
     "contents": "",
     "dirty": false,
     "created": 1628174643551.0,
@@ -13,15 +13,15 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "3,0",
-        "scrollLine": "0"
+        "cursorPosition": "61,0",
+        "scrollLine": "31"
     },
     "folds": "",
-    "lastKnownWriteTime": 1628174829,
+    "lastKnownWriteTime": 1628189906,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1628174829490,
+    "last_content_update": 1628189906570,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -1,7 +1,7 @@
 install.packages("Ecdat")
 library(Ecdat)
 head(Cigarette)
-
+Cigarette
 
 # Create a boxplot of the average number of packs per capita by state. 
 
@@ -12,17 +12,38 @@ ggplot(Cigarette, aes(x=state, y=packpc)) + geom_boxplot()
 Cigarette %>% group_by(packpc) %>% summarise(Mean=(state)) %>% 
   arrange(Mean)
 
+# Which states have the highest number of packs?
 
 Cigarette %>% group_by(packpc) %>% summarise(Mean=(state)) %>% 
   arrange(desc(Mean))
 
-Cigarette %>% select(year, packpc) %>% group_by(year) %>% summarise(meanPacks = mean(packpc))
+#Find the median over all the states of the number of packs per capita for each year. 
+
+Cigarette %>% group_by(year) %>% summarise(Median=packpc)
+# year Median
+#<int>  <dbl>
+# 1  1985  119. 
+#2  1986  116. 
+#3  1987  113. 
+#4  1988  111. 
+#5  1989  108. 
+#6  1990  100. 
+#7  1991   97.9
+#8  1992   95.1
+#9  1993   93.2
+#10  1994   92.8
+#11  1995   92.8
+
 medianpackpc <- Cigarette %>% group_by(year) %>% summarise(Median=(packpc))
+
 #Plot this median value for the years from 1985 to 1995.
-unique(Cigarette$packpc)   
+unique(Cigarette$packpc)
+#[1] 1985 1986 1987 1988 1989 1990 1991 1992 1993 1994 1995
+
 #Create a scatter plot of price per pack vs number of packs per capita for all states and years.
 ggplot(Cigarette, aes(x=avgprs, y=packpc)) + geom_point() +
   geom_smooth(method = lm)
+
 #Change your scatter plot to show the points for each year in a different color.
 #Does the relationship between the two variable change over time?
 ggplot(Cigarette, aes(x=avgprs, y=packpc, color=year)) + geom_point() +
@@ -32,33 +53,25 @@ ggplot(Cigarette, aes(x=avgprs, y=packpc, color=year)) + geom_point() +
 
 regression <- lm (packpc~year,Cigarette)
 summary(regression)
-
 #Call:
 #lm(formula = packpc ~ year, data = Cigarette)
 
 #Residuals:
-#Min      1Q  Median      3Q     Max 
+  #Min      1Q  Median      3Q     Max 
 #-56.566 -13.853  -2.646  10.701  80.819 
 
 #Coefficients:
-#Estimate Std. Error t value Pr(>|t|)    
+  #Estimate Std. Error t value Pr(>|t|)    
 #(Intercept) 5927.5923   580.8610   10.21   <2e-16 ***
-# year          -2.9252     0.2919  -10.02   <2e-16 ***
----
+ # year          -2.9252     0.2919  -10.02   <2e-16 ***
+  ---
   #Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-  
-  #Residual standard error: 21.21 on 526 degrees of freedom
-  #Multiple R-squared:  0.1603,	Adjusted R-squared:  0.1587 
-  #F-statistic: 100.4 on 1 and 526 DF,  p-value: < 2.2e-16
-  
-  #The plot above does not adjust for inflation. 
-  #You can adjust the price of a pack of cigarettes for inflation by dividing the avgprs variable by the cpi variable. 
 
-  Cigarette %>% mutate(avgprs= avgprs / cpi)
+#Residual standard error: 21.21 on 526 degrees of freedom
+#Multiple R-squared:  0.1603,	Adjusted R-squared:  0.1587 
+#F-statistic: 100.4 on 1 and 526 DF,  p-value: < 2.2e-16
+  
+#The plot above does not adjust for inflation. 
+#You can adjust the price of a pack of cigarettes for inflation by dividing the avgprs variable by the cpi variable. 
 #Create an adjusted price for each row, then re-do your scatter plot and linear regression using this adjusted price.
-
-ggplot(Cigarette, aes(x=avgprs, y=cpi)) + geom_point() +
-  geom_smooth(method = lm)
-
-
-
+Cigarette %>% mutate(avgprs= avgprs / cpi)
